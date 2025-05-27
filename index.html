@@ -59,6 +59,15 @@
             border-bottom: 3px solid #007bff;
             padding-bottom: 10px;
         }
+        
+        .section-title-alt { /* Voor sub-secties */
+            font-size: 1.8em;
+            color: #0069d9; 
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-left: 4px solid #0069d9;
+            padding-left: 10px;
+        }
 
         h3 {
             font-size: 1.5em;
@@ -73,7 +82,7 @@
             margin-right: 10px;
             font-size: 1.2em;
         }
-
+        
         h4 {
             font-size: 1.2em;
             color: #495057;
@@ -89,6 +98,20 @@
         ul {
             margin: 15px 0 15px 25px;
         }
+        
+        ul.fields-list li {
+            margin-bottom: 10px;
+            padding-left: 10px;
+            border-left: 3px solid #007bff;
+            background-color: #f8f9fa;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-radius: 4px;
+        }
+        ul.fields-list strong {
+            color: #0056b3;
+        }
+
 
         li {
             margin-bottom: 8px;
@@ -116,29 +139,30 @@
 
         .step-container {
             background: #f8f9fa;
-            border: 2px solid #dee2e6;
-            border-radius: 12px;
-            padding: 25px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
             margin: 20px 0;
             position: relative;
         }
-
+        
         .step-number {
             position: absolute;
             top: -15px;
-            left: 20px;
+            left: -15px;
             background: #007bff;
             color: white;
-            width: 35px;
-            height: 35px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             font-size: 1.2em;
+            box-shadow: 0 3px 8px rgba(0, 123, 255, 0.3);
         }
-
+        
         .highlight {
             background: #fff3cd;
             padding: 3px 8px;
@@ -146,19 +170,48 @@
             font-weight: 600;
             color: #856404;
         }
-
+        
         .warning-box {
             background: #fff3cd;
             border: 1px solid #ffeaa7;
+            border-left: 5px solid #ffc107;
             border-radius: 8px;
             padding: 15px;
-            margin: 15px 0;
+            margin: 20px 0;
+        }
+
+        .warning-box strong {
+             color: #856404;
+        }
+        
+        .warning-box ul {
+            margin-top:10px;
+            margin-bottom: 0;
         }
 
         .warning-box::before {
             content: "⚠️ ";
             font-weight: bold;
+            color: #856404;
         }
+        
+        .info-box {
+            background: #e2f3ff;
+            border: 1px solid #b8dfff;
+            border-left: 5px solid #007bff;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .info-box strong {
+            color: #004085;
+        }
+        .info-box::before {
+            content: "ℹ️ ";
+            font-weight: bold;
+            color: #004085;
+        }
+
 
         .quiz {
             display: none;
@@ -176,22 +229,24 @@
         }
 
         .options button {
-            display: inline-block;
-            margin: 10px;
-            padding: 15px 25px;
-            font-size: 1.1em;
+            display: block; /* Knoppen onder elkaar voor betere leesbaarheid */
+            width: 100%; /* Volledige breedte */
+            text-align: left;
+            margin: 8px 0; /* Aanpassing marge */
+            padding: 15px 20px; /* Aanpassing padding */
+            font-size: 1.05em; /* Iets kleinere font-size voor meer tekst */
             color: white;
             background: #007bff;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
         }
 
         .options button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
+            transform: translateY(-2px) translateX(2px); /* Subtiele hover animatie */
+            box-shadow: 0 6px 16px rgba(0, 123, 255, 0.3);
         }
 
         .options button.correct {
@@ -205,7 +260,7 @@
         }
 
         .options button:disabled {
-            opacity: 0.6;
+            opacity: 0.7;
             cursor: not-allowed;
             transform: none;
         }
@@ -226,28 +281,28 @@
         }
 
         .navigation {
-            text-align: center;
-            margin-top: 30px;
-        }
+        text-align: center;
+        margin-top: 30px;
+    }
 
-        .navigation button {
-            padding: 12px 25px;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin: 0 10px;
-            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
-        }
+    .navigation button {
+        padding: 12px 25px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1em;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin: 0 10px;
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+    }
 
-        .navigation button:hover {
-            background: #0056b3;
-            transform: translateY(-2px);
-        }
-
+    .navigation button:hover {
+        background: #0056b3;
+        transform: translateY(-2px);
+    }
+        
         .results-section {
             text-align: center;
             padding: 30px;
@@ -270,7 +325,7 @@
 
     <!-- Instructie Sectie -->
     <section>
-        <h2>📚 Instructiegids</h2>
+        <h2>📚 Instructiegids: Suspect Koppelen</h2>
         
         <div class="concept-box">
             <h4>Wat is Suspect Koppeling?</h4>
@@ -287,6 +342,8 @@
             </ul>
         </div>
 
+        <h2 class="section-title-alt">🔄 Stappen voor Suspect Koppeling</h2>
+        
         <div class="step-container">
             <div class="step-number">1</div>
             <h3>Suspect Dossier Openen</h3>
@@ -437,16 +494,14 @@
 
 <script>
     let correctAnswers = 0;
-    let totalQuestions = 2;
+    const totalQuestions = 2; // Aangepast naar het aantal vragen
 
     function handleQuizAnswer(button, correct) {
-        // Disable all buttons after an answer
         const parent = button.parentElement;
-        const feedback = parent.nextElementSibling;
+        const feedback = parent.nextElementSibling; // feedback-quiz-X div
 
         parent.querySelectorAll('button').forEach(btn => btn.disabled = true);
 
-        // Show feedback and tally score
         if (correct) {
             correctAnswers++;
             button.classList.add('correct');
@@ -459,36 +514,48 @@
         }
     }
 
+    function navigateToQuiz(quizIdToShow) {
+        document.querySelectorAll('.quiz').forEach(quizDiv => {
+            quizDiv.classList.remove('active');
+        });
+        const targetQuiz = document.getElementById(quizIdToShow);
+        if (targetQuiz) {
+            targetQuiz.classList.add('active');
+        }
+    }
+
     function nextQuiz(quizNumber) {
-        document.querySelectorAll('.quiz').forEach(quiz => quiz.classList.remove('active'));
-        document.getElementById(`quiz-${quizNumber}`).classList.add('active');
+        navigateToQuiz(`quiz-${quizNumber}`);
     }
 
     function prevQuiz(quizNumber) {
-        document.querySelectorAll('.quiz').forEach(quiz => quiz.classList.remove('active'));
-        document.getElementById(`quiz-${quizNumber}`).classList.add('active');
+        navigateToQuiz(`quiz-${quizNumber}`);
     }
 
     function showResults() {
-        const percentage = ((correctAnswers / totalQuestions) * 100).toFixed(0);
-
-        document.querySelectorAll('.quiz').forEach(quiz => quiz.classList.remove('active'));
-        document.getElementById('quiz-results').classList.add('active');
-
+        const percentage = totalQuestions > 0 ? ((correctAnswers / totalQuestions) * 100).toFixed(0) : 0;
         document.getElementById('result-text').textContent = `Je hebt ${correctAnswers} van de ${totalQuestions} vragen goed beantwoord (${percentage}%).`;
+        navigateToQuiz('quiz-results');
     }
 
     function restartQuiz() {
         correctAnswers = 0;
-        document.querySelectorAll('.quiz').forEach(quiz => quiz.classList.remove('active'));
         document.querySelectorAll('.options button').forEach(btn => {
             btn.disabled = false;
             btn.classList.remove('correct', 'wrong');
         });
-        document.querySelectorAll('.feedback').forEach(fb => fb.textContent = '');
-
-        document.getElementById('quiz-1').classList.add('active');
+        document.querySelectorAll('.feedback').forEach(fb => {
+            fb.textContent = '';
+            // Zorg ervoor dat de class weer neutraal is als je 'good'/'wrong' direct op feedback div zet
+            fb.className = 'feedback'; 
+        });
+        navigateToQuiz('quiz-1');
     }
+
+    // Zorg dat de eerste quiz zichtbaar is bij het laden
+    document.addEventListener('DOMContentLoaded', () => {
+        navigateToQuiz('quiz-1');
+    });
 </script>
 
 </body>
