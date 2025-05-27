@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suspect Koppelen - Instructie & Quiz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            background: #f5f6fa;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+
+        section {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 2.2em;
+            color: #007bff;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            color: #0056b3;
+            margin: 25px 0 15px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        h3::before {
+            content: "📋";
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        h4 {
+            font-size: 1.2em;
+            color: #495057;
+            margin: 20px 0 10px 0;
+            font-weight: 600;
+        }
+
+        p, li {
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+
+        ul {
+            margin: 15px 0 15px 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .concept-box {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border-left: 5px solid #007bff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .concept-box h4 {
+            color: #0056b3;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .concept-box h4::before {
+            content: "💡";
+            margin-right: 8px;
+        }
+
+        .step-container {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: #007bff;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-weight: 600;
+            color: #856404;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .warning-box::before {
+            content: "⚠️ ";
+            font-weight: bold;
+        }
+
+        .quiz {
+            display: none;
+        }
+
+        .quiz.active {
+            display: block;
+        }
+
+        .question {
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .options button {
+            display: inline-block;
+            margin: 10px;
+            padding: 15px 25px;
+            font-size: 1.1em;
+            color: white;
+            background: #007bff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+        }
+
+        .options button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
+        }
+
+        .options button.correct {
+            background: #28a745 !important;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+        }
+
+        .options button.wrong {
+            background: #dc3545 !important;
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+        }
+
+        .options button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .feedback {
+            font-size: 2em;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .feedback.good {
+            color: #28a745;
+        }
+
+        .feedback.wrong {
+            color: #dc3545;
+        }
+
+        .navigation {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .navigation button {
+            padding: 12px 25px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 0 10px;
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+        }
+
+        .navigation button:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .results-section {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .results-section p {
+            font-size: 1.8em;
+            margin: 20px 0;
+            color: #495057;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Suspect Koppelen aan Vestiging</h1>
+        <p>Volledige instructiegids met interactieve quiz</p>
+    </header>
+
+    <!-- Instructie Sectie -->
+    <section>
+        <h2>📚 Instructiegids</h2>
+        
+        <div class="concept-box">
+            <h4>Wat is Suspect Koppeling?</h4>
+            <p>Het koppelen van een suspect aan een vestiging is een cruciaal proces waarbij verdachte entiteiten worden geassocieerd met specifieke bedrijfslocaties. Dit zorgt voor betere traceerbaarheid, verantwoordelijkheid en organisatie binnen het systeem.</p>
+        </div>
+
+        <div class="concept-box">
+            <h4>Waarom is dit belangrijk?</h4>
+            <ul>
+                <li><strong>Traceerbaarheid:</strong> Elk suspect kan worden getraceerd naar een specifieke vestiging</li>
+                <li><strong>Verantwoordelijkheid:</strong> Duidelijke toewijzing van contactpersonen en accountmanagers</li>
+                <li><strong>Rapportage:</strong> Betere overzichten en analyses per vestiging</li>
+                <li><strong>Workflow:</strong> Gestroomlijnd proces voor behandeling van suspects</li>
+            </ul>
+        </div>
+
+        <div class="step-container">
+            <div class="step-number">1</div>
+            <h3>Suspect Dossier Openen</h3>
+            <h4>🎯 Doel</h4>
+            <p>Navigeer naar het juiste suspect dossier om de koppeling te kunnen maken.</p>
+            
+            <h4>📝 Acties</h4>
+            <ul>
+                <li>Open het vastgoedbeheersysteem</li>
+                <li>Zoek het gewenste suspect via de zoekfunctie</li>
+                <li>Klik op het suspect om het dossier te openen</li>
+            </ul>
+            
+            <div class="warning-box">
+                <strong>Tip:</strong> Gebruik de filterfunctie om sneller het juiste suspect te vinden.
+            </div>
+        </div>
+
+        <div class="step-container">
+            <div class="step-number">2</div>
+            <h3>Sectie 'Inschrijving' Lokaliseren</h3>
+            <h4>🎯 Doel</h4>
+            <p>Vind de sectie waar de vestigingskoppeling wordt beheerd.</p>
+            
+            <h4>📝 Acties</h4>
+            <ul>
+                <li>Scroll door het geopende dossier</li>
+                <li>Zoek naar de sectie <span class="highlight">'Inschrijving'</span></li>
+                <li>Let op de visuele markeringen die deze sectie onderscheiden</li>
+            </ul>
+        </div>
+
+        <div class="step-container">
+            <div class="step-number">3</div>
+            <h3>Inschrijvingsgegevens Wijzigen</h3>
+            <h4>🎯 Doel</h4>
+            <p>Toegang verkrijgen tot de invoervelden voor vestigingskoppeling.</p>
+            
+            <h4>📝 Acties</h4>
+            <ul>
+                <li>Klik op de drie verticale puntjes <span class="highlight">(⋮)</span> in de 'Inschrijving'-sectie</li>
+                <li>Selecteer <span class="highlight">'Wijzigen'</span> uit het dropdown menu</li>
+                <li>Wacht tot de invoervelden zichtbaar worden</li>
+            </ul>
+        </div>
+
+        <div class="step-container">
+            <div class="step-number">4</div>
+            <h3>Gegevens Invullen</h3>
+            <h4>🎯 Doel</h4>
+            <p>Vul alle benodigde velden in voor een complete vestigingskoppeling.</p>
+            
+            <h4>📝 Verplichte velden</h4>
+            <ul>
+                <li><strong>Vestiging:</strong> Selecteer de juiste vestiging uit de dropdown-lijst</li>
+                <li><strong>Contactpersoon:</strong> Kies de verantwoordelijke contactpersoon</li>
+                <li><strong>Accountmanager:</strong> Wijs de betreffende accountmanager toe</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>Let op:</strong> Alle velden moeten worden ingevuld om een volledige koppeling te maken.
+            </div>
+        </div>
+
+        <div class="step-container">
+            <div class="step-number">5</div>
+            <h3>Wijzigingen Opslaan</h3>
+            <h4>🎯 Doel</h4>
+            <p>Definitief opslaan van de vestigingskoppeling in het systeem.</p>
+            
+            <h4>📝 Acties</h4>
+            <ul>
+                <li>Controleer alle ingevoerde gegevens</li>
+                <li>Klik op de knop <span class="highlight">'Opslaan'</span></li>
+                <li>Wacht op bevestigingsbericht</li>
+            </ul>
+        </div>
+
+        <div class="step-container">
+            <div class="step-number">6</div>
+            <h3>Verificatie en Controle</h3>
+            <h4>🎯 Doel</h4>
+            <p>Controleren of de koppeling succesvol is uitgevoerd.</p>
+            
+            <h4>📝 Controlepunten</h4>
+            <ul>
+                <li>Controleer of de gegevens zichtbaar zijn in de 'Inschrijving'-sectie</li>
+                <li>Navigeer naar het suspects-overzicht</li>
+                <li>Verifieer dat de vestiging correct wordt weergegeven in de 'Vestiging'-kolom</li>
+                <li>Check of alle gekoppelde personen correct zijn weergegeven</li>
+            </ul>
+
+            <div class="warning-box">
+                <strong>Belangrijk:</strong> Lege velden worden weergegeven als '—' in het systeem.
+            </div>
+        </div>
+
+        <div class="concept-box">
+            <h4>Best Practices</h4>
+            <ul>
+                <li>Controleer altijd dubbel voordat u opslaat</li>
+                <li>Houd vestigingsinformatie up-to-date</li>
+                <li>Documenteer wijzigingen indien nodig</li>
+                <li>Informeer relevante teamleden bij belangrijke wijzigingen</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Quiz Sectie -->
+    <section id="quiz-section">
+        <h2>🎯 Toets je Kennis</h2>
+        <div id="quiz-1" class="quiz active">
+            <div class="question">Waar vind je de sectie 'Inschrijving'?</div>
+            <div class="options">
+                <button onclick="handleQuizAnswer(this, true)">In het Dossier</button>
+                <button onclick="handleQuizAnswer(this, false)">In het Overzicht</button>
+            </div>
+            <div id="feedback-quiz-1" class="feedback"></div>
+            <div class="navigation">
+                <button onclick="nextQuiz(2)">Volgende Vraag</button>
+            </div>
+        </div>
+
+        <div id="quiz-2" class="quiz">
+            <div class="question">Welke knop gebruik je om gegevens op te slaan?</div>
+            <div class="options">
+                <button onclick="handleQuizAnswer(this, false)">Annuleren</button>
+                <button onclick="handleQuizAnswer(this, true)">Opslaan</button>
+            </div>
+            <div id="feedback-quiz-2" class="feedback"></div>
+            <div class="navigation">
+                <button onclick="prevQuiz(1)">Vorige Vraag</button>
+                <button onclick="showResults()">Resultaat Tonen</button>
+            </div>
+        </div>
+
+        <div id="quiz-results" class="quiz">
+            <div class="results-section">
+                <h2>🏆 Resultaten</h2>
+                <p id="result-text"></p>
+                <div class="navigation">
+                    <button onclick="restartQuiz()">Opnieuw Proberen</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    let correctAnswers = 0;
+    let totalQuestions = 2;
+
+    function handleQuizAnswer(button, correct) {
+        // Disable all buttons after an answer
+        const parent = button.parentElement;
+        const feedback = parent.nextElementSibling;
+
+        parent.querySelectorAll('button').forEach(btn => btn.disabled = true);
+
+        // Show feedback and tally score
+        if (correct) {
+            correctAnswers++;
+            button.classList.add('correct');
+            feedback.textContent = 'Goed 🎉';
+            feedback.className = 'feedback good';
+        } else {
+            button.classList.add('wrong');
+            feedback.textContent = 'Fout 🚫';
+            feedback.className = 'feedback wrong';
+        }
+    }
+
+    function nextQuiz(quizNumber) {
+        document.querySelectorAll('.quiz').forEach(quiz => quiz.classList.remove('active'));
+        document.getElementById(`quiz-${quizNumber}`).classList.add('active');
+    }
+
+    function prevQuiz(quizNumber) {
+        document.querySelectorAll('.quiz').forEach(quiz => quiz.classList.remove('active'));
+        document.getElementById(`quiz-${quizNumber}`).classList.add('active');
+    }
+
+    function showResults() {
+        const percentage = ((correctAnswers / totalQuestions) * 100).toFixed(0);
+
+        document.querySelectorAll('.quiz').forEach(quiz => quiz.classList.remove('active'));
+        document.getElementById('quiz-results').classList.add('active');
+
+        document.getElementById('result-text').textContent = `Je hebt ${correctAnswers} van de ${totalQuestions} vragen goed beantwoord (${percentage}%).`;
+    }
+
+    function restartQuiz() {
+        correctAnswers = 0;
+        document.querySelectorAll('.quiz').forEach(quiz => quiz.classList.remove('active'));
+        document.querySelectorAll('.options button').forEach(btn => {
+            btn.disabled = false;
+            btn.classList.remove('correct', 'wrong');
+        });
+        document.querySelectorAll('.feedback').forEach(fb => fb.textContent = '');
+
+        document.getElementById('quiz-1').classList.add('active');
+    }
+</script>
+
+</body>
+</html>
